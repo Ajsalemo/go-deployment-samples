@@ -10,3 +10,10 @@ To run these examples locally and then deploy, do the following:
   - Add the remote repository with `git remote add azure <remote URI>`
   - Add and commit - `git add .` followed by `git commit "initial commit"`
   - Push to the remote - `git push azure master`
+  
+ 
+Frameworks:
+ - [Beego](https://github.com/beego/beego)
+ - [Gin](https://gin-gonic.com/)
+ - [Goji](https://goji.io/)
+ - [Martini](https://github.com/go-martini/martini)
