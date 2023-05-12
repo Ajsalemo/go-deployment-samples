@@ -14,6 +14,7 @@ To run these examples locally and then deploy, do the following:
  
 Frameworks:
  - [Beego](https://github.com/beego/beego)
+ - [Fiber](https://docs.gofiber.io/)
  - [Gin](https://gin-gonic.com/)
  - [Goji](https://goji.io/)
  - [Martini](https://github.com/go-martini/martini)
