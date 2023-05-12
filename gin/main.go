@@ -23,7 +23,7 @@ func main() {
 	r := setupRouter()
 	// In production set GIN_MODE to release
 	// or add this line:
-	// gin.SetMode(gin.ReleaseMode)
+	gin.SetMode(gin.ReleaseMode)
 	print("Server listening on 0.0.0.0:8080")
 	r.Run(":8080")
 }
