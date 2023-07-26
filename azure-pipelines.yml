@@ -37,6 +37,20 @@ stages:
       displayName: 'Install pack CLI'
       
     - script: |
-        pack build --path ./fiber --builder paketobuildpacks/builder:base --publish ansalemoacr.azurecr.io/go-devops-pack-packeto:latest
+        pack build --path ./fiber --builder paketobuildpacks/builder:base --publish ansalemoacr.azurecr.io/go-devops-pack-packeto:$(tag)
       displayName: 'Build application with pack and push to Container Registry'
 
+- stage: Deploy
+  displayName: Deploy image
+  jobs:
+  - job: Deploy
+    displayName: Deploy
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: AzureWebAppContainer@1
+      inputs:
+        azureSubscription: 'Ansalemo(4388fa06-bf66-4497-82c2-991ba75ecb97)'
+        appName: 'ansalemo-node-packeto'
+        containers: 'ansalemoacr.azurecr.io/go-devops-pack-packeto:$(tag)'
+        appSettings: '-WEBSITES_PORT 8080'
