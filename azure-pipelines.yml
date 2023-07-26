@@ -1,0 +1,42 @@
+# Docker
+# Build and push an image to Azure Container Registry
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- main
+
+resources:
+- repo: self
+
+variables:
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: 'b0c8f778-2f83-49bf-8937-8baac5f17cb0'
+  tag: '$(Build.BuildId)'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'ansalemoacr'
+        command: 'login'
+      
+    - script: |
+        sudo add-apt-repository ppa:cncf-buildpacks/pack-cli -yy
+        sudo apt-get update -yy
+        sudo apt-get install pack-cli -yy
+      displayName: 'Install pack CLI'
+      
+    - script: |
+        pack build --path ./fiber --builder paketobuildpacks/builder:base --publish ansalemoacr.azurecr.io/go-devops-pack-packeto:latest
+      displayName: 'Build application with pack and push to Container Registry'
+
