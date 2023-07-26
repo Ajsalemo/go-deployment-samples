@@ -54,7 +54,7 @@ stages:
         azureSubscription: 'Ansalemo(4388fa06-bf66-4497-82c2-991ba75ecb97)'
         appType: 'webAppContainer'
         WebAppName: 'ansalemo-go-packeto'
-        DockerNamespace: 'ansalemoacr'
+        DockerNamespace: 'ansalemoacr.azurecr.io'
         DockerRepository: 'go-devops-pack-packeto'
         DockerImageTag: '$(tag)'
         AppSettings: '-WEBSITES_PORT 8080'
