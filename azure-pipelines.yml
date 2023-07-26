@@ -48,9 +48,13 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
-    - task: AzureWebAppContainer@1
+    - task: AzureRmWebAppDeployment@4
       inputs:
+        ConnectionType: 'AzureRM'
         azureSubscription: 'Ansalemo(4388fa06-bf66-4497-82c2-991ba75ecb97)'
-        appName: 'ansalemo-node-packeto'
-        containers: 'ansalemoacr.azurecr.io/go-devops-pack-packeto:$(tag)'
-        appSettings: '-WEBSITES_PORT 8080'
+        appType: 'webAppContainer'
+        WebAppName: 'ansalemo-node-packeto'
+        DockerNamespace: 'ansalemoacr.azurecr.io'
+        DockerRepository: 'ansalemoacr.azurecr.io/go-devops-pack-packeto:$(tag)'
+        DockerImageTag: '$(tag)'
+        AppSettings: '-WEBSITES_PORT 8080'
